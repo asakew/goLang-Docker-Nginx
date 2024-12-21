@@ -4,6 +4,8 @@ services:
     build:
       context: ./backend
     restart: always
+    expose:
+      - "3002"
 
   react-app:
     build:
@@ -16,7 +18,7 @@ services:
     build:
       context: ./nginx
     ports:
-      - "30:02"
+      - "80:80"
     depends_on:
       - go-app
       - react-app
