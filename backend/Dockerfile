@@ -1,12 +1,17 @@
-# Build stage
-FROM golang:alpine AS builder
+# Official Golang image (You shouldn't use the `latest` version in production but I'm a bad guy)
+FROM golang:latest
+
+# Working directory
 WORKDIR /app
-COPY . .
+
+# Copy everything at /app
+COPY . /app
+
+# Build the go app
 RUN go build -o main .
 
-# Run stage
-FROM alpine:latest
-WORKDIR /root/
-COPY --from=builder /app/main .
-EXPOSE 3002
+# Expose port
+EXPOSE 8080
+
+# Define the command to run the app
 CMD ["./main"]
